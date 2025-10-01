@@ -69,6 +69,11 @@ This project follows **Clean Architecture** principles with the following tech s
 ### 🎯 Functional Programming
 - **FPDart** - Either, Option, Result types for error handling
 
+### 🎨 Design & Theming
+- **Material Design 3** - Modern UI components
+- **Google Fonts (Jost)** - Custom typography applied globally
+- **Light & Dark Mode** - Adaptive themes that follow system preferences
+
 ### 📏 Code Quality
 - **Very Good Analysis** - Strict lint rules
 - **Logger** - Structured logging

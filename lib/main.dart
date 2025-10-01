@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:my_awesome_store/core/config/app_theme.dart';
 import 'package:my_awesome_store/core/config/env_config.dart';
 import 'package:my_awesome_store/core/di/injection_container.dart';
 
@@ -41,10 +42,9 @@ class MyAwesomeStoreApp extends StatelessWidget {
     return MaterialApp(
       title: EnvConfig.appName,
       debugShowCheckedModeBanner: EnvConfig.debugMode,
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
-        useMaterial3: true,
-      ),
+      theme: AppTheme.lightTheme,
+      darkTheme: AppTheme.darkTheme,
+      themeMode: ThemeMode.system, // Usa el tema del sistema (light/dark)
       home: const HomePage(),
     );
   }
@@ -59,52 +59,182 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('My Awesome Store'),
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
       ),
-      body: Center(
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(24),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
+            // Header con ícono
             Icon(
-              Icons.store,
-              size: 100,
+              Icons.store_rounded,
+              size: 80,
               color: Theme.of(context).colorScheme.primary,
             ),
-            const SizedBox(height: 24),
+            const SizedBox(height: 16),
+
+            // Título con fuente Jost
             Text(
               '¡Bienvenido!',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-            const SizedBox(height: 16),
-            const Text(
-              'Configuración completada:',
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.headlineLarge,
             ),
             const SizedBox(height: 8),
-            const Text('✅ Inyección de Dependencias (GetIt + Injectable)'),
-            const Text('✅ Base de Datos (Drift + SQLite)'),
-            const Text('✅ Clean Architecture'),
-            const Text('✅ Manejo de Errores (Freezed + FpDart)'),
-            const Text('✅ Logger Configurado'),
-            const Text('✅ Variables de Entorno (.env)'),
-            const Text('✅ Routing (go_router)'),
-            const Text('✅ Íconos y Splash personalizables'),
-            const SizedBox(height: 16),
+
+            // Subtítulo
             Text(
-              'Entorno: ${EnvConfig.environment}',
-              style: const TextStyle(fontSize: 12, color: Colors.grey),
+              'My Awesome Store está lista para usar',
+              textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.bodyLarge,
             ),
-            Text(
-              'Versión: ${EnvConfig.appVersion}',
-              style: const TextStyle(fontSize: 12, color: Colors.grey),
+            const SizedBox(height: 32),
+
+            // Card de configuración
+            Card(
+              child: Padding(
+                padding: const EdgeInsets.all(20),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.check_circle,
+                          color: Theme.of(context).colorScheme.primary,
+                          size: 24,
+                        ),
+                        const SizedBox(width: 12),
+                        Text(
+                          'Configuración Completa',
+                          style: Theme.of(context).textTheme.titleLarge,
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 16),
+                    _buildFeatureItem(context, '🏗️', 'Clean Architecture'),
+                    _buildFeatureItem(context, '📦', 'BLoC Pattern'),
+                    _buildFeatureItem(
+                      context,
+                      '💉',
+                      'Dependency Injection (GetIt)',
+                    ),
+                    _buildFeatureItem(context, '🗄️', 'Base de Datos (SQLite)'),
+                    _buildFeatureItem(context, '🔧', 'Manejo de Errores'),
+                    _buildFeatureItem(context, '🎨', 'Tema con fuente Jost'),
+                    _buildFeatureItem(context, '🌓', 'Light & Dark Mode'),
+                    _buildFeatureItem(context, '📝', 'Logger configurado'),
+                    _buildFeatureItem(context, '🌐', 'Variables de entorno'),
+                    _buildFeatureItem(
+                      context,
+                      '🚀',
+                      'CI/CD con GitHub Actions',
+                    ),
+                  ],
+                ),
+              ),
             ),
             const SizedBox(height: 24),
-            const Text(
-              'Próximos pasos: Implementar features (Productos, Ventas, etc.)',
-              style: TextStyle(fontStyle: FontStyle.italic),
+
+            // Card de información de entorno
+            Card(
+              color: Theme.of(context).colorScheme.primaryContainer,
+              child: Padding(
+                padding: const EdgeInsets.all(16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Información de Entorno',
+                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                        color: Theme.of(context).colorScheme.onPrimaryContainer,
+                      ),
+                    ),
+                    const SizedBox(height: 12),
+                    _buildInfoRow(context, 'Versión', EnvConfig.appVersion),
+                    _buildInfoRow(
+                      context,
+                      'Entorno',
+                      EnvConfig.environment.toUpperCase(),
+                    ),
+                    _buildInfoRow(
+                      context,
+                      'Debug Mode',
+                      EnvConfig.debugMode ? 'Activo' : 'Inactivo',
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            const SizedBox(height: 32),
+
+            // Botones de acción
+            ElevatedButton.icon(
+              onPressed: () {
+                // TODO: Navegar a la primera feature
+              },
+              icon: const Icon(Icons.rocket_launch),
+              label: const Text('Comenzar a Usar'),
+              style: ElevatedButton.styleFrom(
+                padding: const EdgeInsets.symmetric(vertical: 16),
+              ),
+            ),
+            const SizedBox(height: 12),
+            OutlinedButton.icon(
+              onPressed: () {
+                // TODO: Mostrar documentación
+              },
+              icon: const Icon(Icons.menu_book),
+              label: const Text('Ver Documentación'),
+              style: OutlinedButton.styleFrom(
+                padding: const EdgeInsets.symmetric(vertical: 16),
+              ),
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _buildFeatureItem(BuildContext context, String emoji, String text) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8),
+      child: Row(
+        children: [
+          Text(emoji, style: const TextStyle(fontSize: 16)),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Text(
+              text,
+              style: Theme.of(context).textTheme.bodyMedium,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildInfoRow(BuildContext context, String label, String value) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 4),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            '$label:',
+            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+              color: Theme.of(
+                context,
+              ).colorScheme.onPrimaryContainer.withValues(alpha: 0.8),
+            ),
+          ),
+          Text(
+            value,
+            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+              fontWeight: FontWeight.w600,
+              color: Theme.of(context).colorScheme.onPrimaryContainer,
+            ),
+          ),
+        ],
       ),
     );
   }
