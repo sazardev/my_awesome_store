@@ -43,3 +43,17 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# Environment files (NO SUBIR SECRETS)
+.env
+.env.local
+.env.*.local
+
+# Generated icons and splash
+android/app/src/main/res/mipmap-*/
+android/app/src/main/res/drawable/
+ios/Runner/Assets.xcassets/AppIcon.appiconset/
+ios/Runner/Assets.xcassets/LaunchImage.imageset/
+
+# macOS
+.DS_Store

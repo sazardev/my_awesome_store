@@ -36,7 +36,6 @@ class $ProductsTable extends Products with TableInfo<$ProductsTable, Product> {
     'price',
     aliasedName,
     false,
-    check: () => ComparableExpr(price).isBiggerThanValue(0),
     type: DriftSqlType.double,
     requiredDuringInsert: true,
   );
@@ -1045,7 +1044,6 @@ class $SalesTable extends Sales with TableInfo<$SalesTable, Sale> {
     'total',
     aliasedName,
     false,
-    check: () => ComparableExpr(total).isBiggerOrEqualValue(0),
     type: DriftSqlType.double,
     requiredDuringInsert: true,
   );
@@ -1448,7 +1446,6 @@ class $SaleItemsTable extends SaleItems
     'quantity',
     aliasedName,
     false,
-    check: () => ComparableExpr(quantity).isBiggerThanValue(0),
     type: DriftSqlType.int,
     requiredDuringInsert: true,
   );
@@ -1460,7 +1457,6 @@ class $SaleItemsTable extends SaleItems
     'unit_price',
     aliasedName,
     false,
-    check: () => ComparableExpr(unitPrice).isBiggerThanValue(0),
     type: DriftSqlType.double,
     requiredDuringInsert: true,
   );
@@ -1472,7 +1468,6 @@ class $SaleItemsTable extends SaleItems
     'subtotal',
     aliasedName,
     false,
-    check: () => ComparableExpr(subtotal).isBiggerOrEqualValue(0),
     type: DriftSqlType.double,
     requiredDuringInsert: true,
   );

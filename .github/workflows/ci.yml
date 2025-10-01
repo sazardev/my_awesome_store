@@ -1,0 +1,177 @@
+name: Flutter CI/CD
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+  workflow_dispatch:
+
+jobs:
+  # Job 1: Análisis estático y linting
+  analyze:
+    name: 📊 Analyze & Lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v4
+
+      - name: 🛠️ Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.35.2'
+          channel: 'stable'
+          cache: true
+
+      - name: 📦 Install dependencies
+        run: flutter pub get
+
+      - name: 🔍 Verify formatting
+        run: dart format --set-exit-if-changed .
+
+      - name: 📊 Analyze project
+        run: flutter analyze
+
+      - name: ✅ Check for lint warnings
+        run: flutter analyze --no-fatal-infos
+
+  # Job 2: Tests unitarios
+  test:
+    name: 🧪 Run Tests
+    runs-on: ubuntu-latest
+    needs: analyze
+    steps:
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v4
+
+      - name: 🛠️ Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.35.2'
+          channel: 'stable'
+          cache: true
+
+      - name: 📦 Install dependencies
+        run: flutter pub get
+
+      - name: 🏗️ Generate code
+        run: flutter pub run build_runner build --delete-conflicting-outputs
+
+      - name: 🧪 Run tests
+        run: flutter test --coverage
+
+      - name: 📈 Upload coverage to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          file: coverage/lcov.info
+          fail_ci_if_error: false
+
+  # Job 3: Build Android APK (Debug)
+  build-android-debug:
+    name: 🤖 Build Android (Debug)
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v4
+
+      - name: 🛠️ Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.35.2'
+          channel: 'stable'
+          cache: true
+
+      - name: ☕ Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: 📦 Install dependencies
+        run: flutter pub get
+
+      - name: 🏗️ Generate code
+        run: flutter pub run build_runner build --delete-conflicting-outputs
+
+      - name: 🔨 Build APK (Debug)
+        run: flutter build apk --debug
+
+      - name: 📤 Upload APK artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-debug
+          path: build/app/outputs/flutter-apk/app-debug.apk
+          retention-days: 7
+
+  # Job 4: Build Android APK (Release) - Solo en main
+  build-android-release:
+    name: 🤖 Build Android (Release)
+    runs-on: ubuntu-latest
+    needs: test
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v4
+
+      - name: 🛠️ Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.35.2'
+          channel: 'stable'
+          cache: true
+
+      - name: ☕ Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: 📦 Install dependencies
+        run: flutter pub get
+
+      - name: 🏗️ Generate code
+        run: flutter pub run build_runner build --delete-conflicting-outputs
+
+      - name: 🔨 Build APK (Release)
+        run: flutter build apk --release
+
+      - name: 📤 Upload APK artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-release
+          path: build/app/outputs/flutter-apk/app-release.apk
+          retention-days: 30
+
+  # Job 5: Build iOS (solo en macOS)
+  build-ios:
+    name: 🍎 Build iOS
+    runs-on: macos-latest
+    needs: test
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v4
+
+      - name: 🛠️ Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.35.2'
+          channel: 'stable'
+          cache: true
+
+      - name: 📦 Install dependencies
+        run: flutter pub get
+
+      - name: 🏗️ Generate code
+        run: flutter pub run build_runner build --delete-conflicting-outputs
+
+      - name: 🔨 Build iOS (No Codesign)
+        run: flutter build ios --release --no-codesign
+
+      - name: 📤 Upload IPA artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ios-build
+          path: build/ios/iphoneos/Runner.app
+          retention-days: 30
