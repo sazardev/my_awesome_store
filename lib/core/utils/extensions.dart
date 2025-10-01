@@ -129,7 +129,7 @@ extension DateTimeExtensions on DateTime {
 /// Extensiones útiles para double (precios, cantidades)
 extension DoubleExtensions on double {
   /// Formatea como precio con símbolo de moneda
-  String toFormattedPrice({String symbol = '\$'}) {
+  String toFormattedPrice({String symbol = r'$'}) {
     final formatter = NumberFormat('#,##0.00');
     return '$symbol${formatter.format(this)}';
   }
@@ -142,7 +142,7 @@ extension DoubleExtensions on double {
   /// Redondea a N decimales
   double roundToDecimals(int decimals) {
     final mod = pow(10.0, decimals) as double;
-    return ((this * mod).round().toDouble() / mod);
+    return (this * mod).round().toDouble() / mod;
   }
 }
 

@@ -31,14 +31,8 @@ class AppTheme {
       brightness: Brightness.light,
 
       // Color Scheme
-      colorScheme: ColorScheme.light(
+      colorScheme: const ColorScheme.light(
         primary: primaryColor,
-        secondary: secondaryColor,
-        error: errorColor,
-        surface: surfaceColor,
-        onPrimary: Colors.white,
-        onSecondary: Colors.black,
-        onError: Colors.white,
         onSurface: textPrimaryColor,
       ),
 
@@ -219,7 +213,7 @@ class AppTheme {
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
-          borderSide: BorderSide(color: Colors.grey[300]!, width: 1),
+          borderSide: BorderSide(color: Colors.grey[300]!),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
@@ -227,7 +221,7 @@ class AppTheme {
         ),
         errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
-          borderSide: const BorderSide(color: errorColor, width: 1),
+          borderSide: const BorderSide(color: errorColor),
         ),
         focusedErrorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
@@ -256,7 +250,7 @@ class AppTheme {
 
       // Chip
       chipTheme: ChipThemeData(
-        backgroundColor: Colors.grey[200]!,
+        backgroundColor: Colors.grey[200],
         selectedColor: primaryColor.withOpacity(0.2),
         labelStyle: GoogleFonts.jost(
           fontSize: 14,
@@ -360,13 +354,11 @@ class AppTheme {
       brightness: Brightness.dark,
 
       // Color Scheme
-      colorScheme: ColorScheme.dark(
+      colorScheme: const ColorScheme.dark(
         primary: primaryColor,
-        secondary: secondaryColor,
         error: errorColor,
         surface: darkSurfaceColor,
         onPrimary: Colors.white,
-        onSecondary: Colors.black,
         onError: Colors.white,
         onSurface: darkTextPrimaryColor,
       ),
@@ -539,7 +531,7 @@ class AppTheme {
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
-          borderSide: const BorderSide(color: Color(0xFF444444), width: 1),
+          borderSide: const BorderSide(color: Color(0xFF444444)),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
@@ -547,7 +539,7 @@ class AppTheme {
         ),
         errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
-          borderSide: const BorderSide(color: errorColor, width: 1),
+          borderSide: const BorderSide(color: errorColor),
         ),
         focusedErrorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),

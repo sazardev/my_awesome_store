@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:go_router/go_router.dart';
 import 'package:my_awesome_store/core/config/app_theme.dart';
 import 'package:my_awesome_store/core/config/env_config.dart';
 import 'package:my_awesome_store/core/di/injection_container.dart';
+import 'package:my_awesome_store/core/routes/app_router.dart';
 
 Future<void> main() async {
   // Asegurar que los bindings de Flutter estén inicializados
@@ -39,13 +41,12 @@ class MyAwesomeStoreApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       title: EnvConfig.appName,
       debugShowCheckedModeBanner: EnvConfig.debugMode,
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
-      themeMode: ThemeMode.system, // Usa el tema del sistema (light/dark)
-      home: const HomePage(),
+      routerConfig: AppRouter.router,
     );
   }
 }
@@ -168,25 +169,29 @@ class HomePage extends StatelessWidget {
             const SizedBox(height: 32),
 
             // Botones de acción
-            ElevatedButton.icon(
-              onPressed: () {
-                // TODO: Navegar a la primera feature
-              },
-              icon: const Icon(Icons.rocket_launch),
-              label: const Text('Comenzar a Usar'),
-              style: ElevatedButton.styleFrom(
-                padding: const EdgeInsets.symmetric(vertical: 16),
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton.icon(
+                onPressed: () => context.push('/products'),
+                icon: const Icon(Icons.inventory_2),
+                label: const Text('Gestionar Productos'),
+                style: ElevatedButton.styleFrom(
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                ),
               ),
             ),
             const SizedBox(height: 12),
-            OutlinedButton.icon(
-              onPressed: () {
-                // TODO: Mostrar documentación
-              },
-              icon: const Icon(Icons.menu_book),
-              label: const Text('Ver Documentación'),
-              style: OutlinedButton.styleFrom(
-                padding: const EdgeInsets.symmetric(vertical: 16),
+            SizedBox(
+              width: double.infinity,
+              child: OutlinedButton.icon(
+                onPressed: () {
+                  // TODO: Mostrar documentación
+                },
+                icon: const Icon(Icons.menu_book),
+                label: const Text('Ver Documentación'),
+                style: OutlinedButton.styleFrom(
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                ),
               ),
             ),
           ],

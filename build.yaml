@@ -1,0 +1,20 @@
+# Build Runner Configuration
+targets:
+  $default:
+    builders:
+      # Freezed configuration
+      freezed:
+        enabled: true
+        options:
+          # Asegura que los archivos se generen correctamente
+          union: true
+          
+      # Drift configuration
+      drift_dev:
+        enabled: true
+        options:
+          generate_connect_constructor: true
+          
+      # Injectable configuration
+      injectable_generator:injectable_builder:
+        enabled: true

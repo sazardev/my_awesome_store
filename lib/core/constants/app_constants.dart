@@ -80,7 +80,7 @@ class AppConstants {
   static const String timeFormat = 'HH:mm';
 
   /// Formato de moneda (símbolo)
-  static const String currencySymbol = '\$';
+  static const String currencySymbol = r'$';
 
   /// Formato de precio con 2 decimales
   static const String priceFormat = '#,##0.00';

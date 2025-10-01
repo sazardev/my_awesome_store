@@ -214,7 +214,7 @@ class Validators {
 }
 
 /// Ejemplo de uso:
-/// 
+///
 /// ```dart
 /// TextFormField(
 ///   validator: Validators.combine(
@@ -225,11 +225,11 @@ class Validators {
 ///     ],
 ///   ),
 /// )
-/// 
+///
 /// TextFormField(
 ///   validator: Validators.productName,
 /// )
-/// 
+///
 /// TextFormField(
 ///   validator: Validators.price,
 /// )

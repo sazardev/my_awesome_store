@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 /// Widget de carga centrado
 class LoadingWidget extends StatelessWidget {
@@ -301,6 +302,7 @@ class AppTextField extends StatelessWidget {
     this.onChanged,
     this.maxLines = 1,
     this.enabled = true,
+    this.inputFormatters,
   });
 
   final TextEditingController? controller;
@@ -314,6 +316,7 @@ class AppTextField extends StatelessWidget {
   final void Function(String)? onChanged;
   final int? maxLines;
   final bool enabled;
+  final List<TextInputFormatter>? inputFormatters;
 
   @override
   Widget build(BuildContext context) {
@@ -331,6 +334,7 @@ class AppTextField extends StatelessWidget {
       onChanged: onChanged,
       maxLines: maxLines,
       enabled: enabled,
+      inputFormatters: inputFormatters,
     );
   }
 }
