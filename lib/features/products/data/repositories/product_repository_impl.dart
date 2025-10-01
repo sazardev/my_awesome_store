@@ -20,9 +20,9 @@ class ProductRepositoryImpl implements ProductRepository {
       final products = productModels.map((model) => model.toEntity()).toList();
       return Right(products);
     } on DatabaseException catch (e) {
-      return Left(Failure.database(message: e.message));
+      return Left(DatabaseFailure( e.message));
     } catch (e) {
-      return Left(Failure.unexpected(message: e.toString()));
+      return Left(UnexpectedFailure( e.toString()));
     }
   }
 
@@ -32,9 +32,9 @@ class ProductRepositoryImpl implements ProductRepository {
       final productModel = await localDataSource.getProductById(id);
       return Right(productModel.toEntity());
     } on DatabaseException catch (e) {
-      return Left(Failure.database(message: e.message));
+      return Left(DatabaseFailure( e.message));
     } catch (e) {
-      return Left(Failure.unexpected(message: e.toString()));
+      return Left(UnexpectedFailure( e.toString()));
     }
   }
 
@@ -45,9 +45,9 @@ class ProductRepositoryImpl implements ProductRepository {
       await localDataSource.addProduct(productModel);
       return const Right(unit);
     } on DatabaseException catch (e) {
-      return Left(Failure.database(message: e.message));
+      return Left(DatabaseFailure( e.message));
     } catch (e) {
-      return Left(Failure.unexpected(message: e.toString()));
+      return Left(UnexpectedFailure( e.toString()));
     }
   }
 
@@ -58,9 +58,9 @@ class ProductRepositoryImpl implements ProductRepository {
       await localDataSource.updateProduct(productModel);
       return const Right(unit);
     } on DatabaseException catch (e) {
-      return Left(Failure.database(message: e.message));
+      return Left(DatabaseFailure( e.message));
     } catch (e) {
-      return Left(Failure.unexpected(message: e.toString()));
+      return Left(UnexpectedFailure( e.toString()));
     }
   }
 
@@ -70,9 +70,9 @@ class ProductRepositoryImpl implements ProductRepository {
       await localDataSource.deleteProduct(id);
       return const Right(unit);
     } on DatabaseException catch (e) {
-      return Left(Failure.database(message: e.message));
+      return Left(DatabaseFailure( e.message));
     } catch (e) {
-      return Left(Failure.unexpected(message: e.toString()));
+      return Left(UnexpectedFailure( e.toString()));
     }
   }
 
@@ -83,9 +83,9 @@ class ProductRepositoryImpl implements ProductRepository {
       final products = productModels.map((model) => model.toEntity()).toList();
       return Right(products);
     } on DatabaseException catch (e) {
-      return Left(Failure.database(message: e.message));
+      return Left(DatabaseFailure( e.message));
     } catch (e) {
-      return Left(Failure.unexpected(message: e.toString()));
+      return Left(UnexpectedFailure( e.toString()));
     }
   }
 
@@ -96,9 +96,9 @@ class ProductRepositoryImpl implements ProductRepository {
       final products = productModels.map((model) => model.toEntity()).toList();
       return Right(products);
     } on DatabaseException catch (e) {
-      return Left(Failure.database(message: e.message));
+      return Left(DatabaseFailure( e.message));
     } catch (e) {
-      return Left(Failure.unexpected(message: e.toString()));
+      return Left(UnexpectedFailure( e.toString()));
     }
   }
 }

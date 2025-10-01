@@ -6,8 +6,8 @@ import 'package:my_awesome_store/features/products/domain/repositories/product_r
 
 /// Caso de uso: Actualizar un producto
 @lazySingleton
-class UpdateProduct {
-  UpdateProduct(this.repository);
+class UpdateProductUseCase {
+  UpdateProductUseCase(this.repository);
   final ProductRepository repository;
 
   Future<Either<Failure, Unit>> call(Product product) {

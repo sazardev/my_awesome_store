@@ -5,8 +5,8 @@ import 'package:my_awesome_store/features/products/domain/repositories/product_r
 
 /// Caso de uso: Eliminar un producto
 @lazySingleton
-class DeleteProduct {
-  DeleteProduct(this.repository);
+class DeleteProductUseCase {
+  DeleteProductUseCase(this.repository);
   final ProductRepository repository;
 
   Future<Either<Failure, Unit>> call(String id) {

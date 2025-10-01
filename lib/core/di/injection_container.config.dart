@@ -92,11 +92,11 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i963.ProductRepository>(
       () => _i764.ProductRepositoryImpl(gh<_i768.ProductLocalDataSource>()),
     );
-    gh.lazySingleton<_i380.AddProduct>(
-      () => _i380.AddProduct(gh<_i963.ProductRepository>()),
+    gh.lazySingleton<_i380.AddProductUseCase>(
+      () => _i380.AddProductUseCase(gh<_i963.ProductRepository>()),
     );
-    gh.lazySingleton<_i803.DeleteProduct>(
-      () => _i803.DeleteProduct(gh<_i963.ProductRepository>()),
+    gh.lazySingleton<_i803.DeleteProductUseCase>(
+      () => _i803.DeleteProductUseCase(gh<_i963.ProductRepository>()),
     );
     gh.lazySingleton<_i143.GetProducts>(
       () => _i143.GetProducts(gh<_i963.ProductRepository>()),
@@ -104,15 +104,16 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i147.GetProductById>(
       () => _i147.GetProductById(gh<_i963.ProductRepository>()),
     );
-    gh.lazySingleton<_i1073.UpdateProduct>(
-      () => _i1073.UpdateProduct(gh<_i963.ProductRepository>()),
+    gh.lazySingleton<_i1073.UpdateProductUseCase>(
+      () => _i1073.UpdateProductUseCase(gh<_i963.ProductRepository>()),
     );
     gh.factory<_i28.ProductBloc>(
       () => _i28.ProductBloc(
         gh<_i143.GetProducts>(),
-        gh<_i380.AddProduct>(),
-        gh<_i1073.UpdateProduct>(),
-        gh<_i803.DeleteProduct>(),
+        gh<_i147.GetProductById>(),
+        gh<_i380.AddProductUseCase>(),
+        gh<_i1073.UpdateProductUseCase>(),
+        gh<_i803.DeleteProductUseCase>(),
       ),
     );
     return this;

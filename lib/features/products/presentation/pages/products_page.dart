@@ -13,8 +13,7 @@ class ProductsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) =>
-          getIt<ProductBloc>()..add(const ProductEvent.loadProducts()),
+      create: (_) => getIt<ProductBloc>()..add(const LoadProducts()),
       child: const _ProductsView(),
     );
   }
@@ -40,54 +39,57 @@ class _ProductsView extends StatelessWidget {
       ),
       body: BlocBuilder<ProductBloc, ProductState>(
         builder: (context, state) {
-          return state.when(
-            initial: () => const Center(
+          if (state is ProductInitial) {
+            return const Center(
               child: Text('Inicializando...'),
-            ),
-            loading: () => const LoadingWidget(
+            );
+          } else if (state is ProductLoading) {
+            return const LoadingWidget(
               message: 'Cargando productos...',
-            ),
-            loaded: (products) {
-              if (products.isEmpty) {
-                return EmptyStateWidget(
-                  message: 'No hay productos registrados',
-                  icon: Icons.inventory_2_outlined,
-                  action: () => context.push('/products/add'),
-                  actionLabel: 'Agregar Producto',
-                );
-              }
-
-              return RefreshIndicator(
-                onRefresh: () async {
-                  context.read<ProductBloc>().add(
-                    const ProductEvent.refreshProducts(),
-                  );
-                  // Esperar un poco para el efecto visual
-                  await Future<void>.delayed(const Duration(milliseconds: 500));
-                },
-                child: ListView.builder(
-                  padding: const EdgeInsets.all(16),
-                  itemCount: products.length,
-                  itemBuilder: (context, index) {
-                    final product = products[index];
-                    return ProductListItem(
-                      product: product,
-                      onTap: () => context.push('/products/edit/${product.id}'),
-                      onDelete: () => _showDeleteDialog(context, product.id),
-                    );
-                  },
-                ),
+            );
+          } else if (state is ProductLoaded) {
+            final products = state.products;
+            if (products.isEmpty) {
+              return EmptyStateWidget(
+                message: 'No hay productos registrados',
+                icon: Icons.inventory_2_outlined,
+                action: () => context.push('/products/add'),
+                actionLabel: 'Agregar Producto',
               );
-            },
-            error: (message) => ErrorWidget(
-              message: message,
+            }
+
+            return RefreshIndicator(
+              onRefresh: () async {
+                context.read<ProductBloc>().add(
+                  const RefreshProducts(),
+                );
+                // Esperar un poco para el efecto visual
+                await Future<void>.delayed(const Duration(milliseconds: 500));
+              },
+              child: ListView.builder(
+                padding: const EdgeInsets.all(16),
+                itemCount: products.length,
+                itemBuilder: (context, index) {
+                  final product = products[index];
+                  return ProductListItem(
+                    product: product,
+                    onTap: () => context.push('/products/edit/${product.id}'),
+                    onDelete: () => _showDeleteDialog(context, product.id),
+                  );
+                },
+              ),
+            );
+          } else if (state is ProductError) {
+            return ErrorWidget(
+              message: state.message,
               onRetry: () {
                 context.read<ProductBloc>().add(
-                  const ProductEvent.loadProducts(),
+                  const LoadProducts(),
                 );
               },
-            ),
-          );
+            );
+          }
+          return const SizedBox.shrink();
         },
       ),
       floatingActionButton: FloatingActionButton.extended(
@@ -108,7 +110,7 @@ class _ProductsView extends StatelessWidget {
     );
 
     if (confirmed && context.mounted) {
-      context.read<ProductBloc>().add(ProductEvent.deleteProduct(productId));
+      context.read<ProductBloc>().add(DeleteProduct(productId));
     }
   }
 }

@@ -1,65 +1,105 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
-
-part 'failures.freezed.dart';
+﻿import 'package:equatable/equatable.dart';
 
 /// Representa los diferentes tipos de fallos que pueden ocurrir en la aplicación
-/// Usando Freezed para pattern matching y union types
-@freezed
-class Failure with _$Failure {
-  const Failure._();
+abstract class Failure extends Equatable {
+  const Failure(this.message);
 
-  /// Fallo del servidor o API
-  const factory Failure.server({
-    required String message,
-    int? statusCode,
-  }) = ServerFailure;
+  final String message;
 
-  /// Fallo de la base de datos local
-  const factory Failure.database({
-    required String message,
-    String? details,
-  }) = DatabaseFailure;
-
-  /// Fallo de conexión de red
-  const factory Failure.network({
-    required String message,
-  }) = NetworkFailure;
-
-  /// Fallo de caché
-  const factory Failure.cache({
-    required String message,
-  }) = CacheFailure;
-
-  /// Fallo inesperado/desconocido
-  const factory Failure.unexpected({
-    required String message,
-    Object? error,
-  }) = UnexpectedFailure;
-
-  /// Fallo de validación
-  const factory Failure.validation({
-    required String message,
-    Map<String, String>? fieldErrors,
-  }) = ValidationFailure;
-
-  /// Mensaje de error técnico (extraído de cada variante)
   @override
-  String get message => when(
-    server: (msg, code) => msg,
-    database: (msg, details) => msg,
-    network: (msg) => msg,
-    cache: (msg) => msg,
-    unexpected: (msg, error) => msg,
-    validation: (msg, errors) => msg,
-  );
+  List<Object?> get props => [message];
 
   /// Mensaje de error amigable para el usuario
-  String get userMessage => when(
-    server: (msg, code) => 'Error del servidor: $msg',
-    database: (msg, details) => 'Error de base de datos: $msg',
-    network: (msg) => 'Error de conexión: $msg. Verifica tu internet.',
-    cache: (msg) => 'Error de caché: $msg',
-    unexpected: (msg, error) => 'Error inesperado: $msg',
-    validation: (msg, errors) => 'Error de validación: $msg',
-  );
+  String get userMessage {
+    if (message.contains('Internet') || message.contains('connection')) {
+      return 'No hay conexión a internet';
+    } else if (message.contains('timeout')) {
+      return 'La operación tardó demasiado tiempo';
+    }
+    return 'Ocurrió un error. Por favor, inténtalo de nuevo.';
+  }
+}
+
+/// Fallo del servidor o API
+class ServerFailure extends Failure {
+  const ServerFailure(super.message, {this.statusCode});
+
+  final int? statusCode;
+
+  @override
+  List<Object?> get props => [message, statusCode];
+
+  @override
+  String get userMessage {
+    if (statusCode == 404) {
+      return 'Recurso no encontrado';
+    } else if (statusCode == 500) {
+      return 'Error del servidor. Intenta más tarde.';
+    } else if (statusCode == 401 || statusCode == 403) {
+      return 'No tienes permiso para realizar esta acción';
+    }
+    return super.userMessage;
+  }
+}
+
+/// Fallo de la base de datos local
+class DatabaseFailure extends Failure {
+  const DatabaseFailure(super.message, {this.details});
+
+  final String? details;
+
+  @override
+  List<Object?> get props => [message, details];
+
+  @override
+  String get userMessage =>
+      'Error al acceder a los datos locales. Intenta reiniciar la aplicación.';
+}
+
+/// Fallo de conexión de red
+class NetworkFailure extends Failure {
+  const NetworkFailure(super.message);
+
+  @override
+  String get userMessage => 'No hay conexión a internet. Verifica tu red.';
+}
+
+/// Fallo de caché
+class CacheFailure extends Failure {
+  const CacheFailure(super.message);
+
+  @override
+  String get userMessage => 'Error al cargar los datos guardados.';
+}
+
+/// Fallo inesperado/desconocido
+class UnexpectedFailure extends Failure {
+  const UnexpectedFailure(super.message, {this.error});
+
+  final Object? error;
+
+  @override
+  List<Object?> get props => [message, error];
+
+  @override
+  String get userMessage =>
+      'Ocurrió un error inesperado. Por favor, contacta soporte.';
+}
+
+/// Fallo de validación
+class ValidationFailure extends Failure {
+  const ValidationFailure(super.message, {this.fieldErrors});
+
+  final Map<String, String>? fieldErrors;
+
+  @override
+  List<Object?> get props => [message, fieldErrors];
+
+  @override
+  String get userMessage {
+    if (fieldErrors != null && fieldErrors!.isNotEmpty) {
+      return fieldErrors!.values.first;
+    }
+    return message;
+  }
 }
