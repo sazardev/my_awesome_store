@@ -1,0 +1,42 @@
+name: my_awesome_store
+description: "A new Flutter project."
+publish_to: 'none'
+version: 0.1.0
+
+environment:
+  sdk: ^3.9.0
+
+dependencies:
+  animate_do: ^4.2.0
+  bloc_test: ^10.0.0
+  device_info_plus: ^12.1.0
+  drift: ^2.28.2
+  drift_flutter: ^0.2.7
+  equatable: ^2.0.7
+  excel: ^4.0.6
+  fl_chart: ^1.1.1
+  fluentui_system_icons: ^1.1.273
+  flutter:
+    sdk: flutter
+  flutter_bloc: ^9.1.1
+  fpdart: ^1.1.1
+  freezed_annotation: ^3.1.0
+  get_it: ^8.2.0
+  google_fonts: ^6.3.2
+  injectable: ^2.5.2
+  json_serializable: ^6.11.1
+  logger: ^2.6.1
+  signature: ^6.3.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+  injectable_generator: ^2.8.1
+  build_runner: ^2.7.1
+  drift_dev: ^2.28.3
+  freezed: ^3.2.3
+  very_good_analysis: ^10.0.0
+
+flutter:
+  uses-material-design: true

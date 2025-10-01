@@ -1,0 +1,21 @@
+include: package:very_good_analysis/analysis_options.yaml
+
+linter:
+  rules:
+    # Clean Architecture specific rules
+    public_member_api_docs: false # We can enable this later when documentation is more mature
+    lines_longer_than_80_chars: false # Modern screens can handle longer lines
+    prefer_single_quotes: true
+    avoid_dynamic_calls: true
+    require_trailing_commas: true
+    sort_constructors_first: true
+    always_use_package_imports: true
+    
+analyzer:
+  exclude:
+    - "**/*.g.dart"
+    - "**/*.freezed.dart"
+    - "**/*.config.dart"
+    - "lib/generated/**"
+  errors:
+    invalid_annotation_target: ignore
