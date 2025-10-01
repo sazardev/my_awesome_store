@@ -157,7 +157,9 @@ class _ProductFormViewState extends State<_ProductFormView> {
             Container(
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
-                color: context.colorScheme.primaryContainer.withOpacity(0.3),
+                color: context.colorScheme.primaryContainer.withValues(
+                  alpha: 0.3,
+                ),
                 borderRadius: BorderRadius.circular(8),
               ),
               child: Row(
@@ -171,7 +173,9 @@ class _ProductFormViewState extends State<_ProductFormView> {
                     child: Text(
                       'Los campos marcados con * son obligatorios',
                       style: context.textTheme.bodySmall?.copyWith(
-                        color: context.colorScheme.onSurface.withOpacity(0.7),
+                        color: context.colorScheme.onSurface.withValues(
+                          alpha: 0.7,
+                        ),
                       ),
                     ),
                   ),

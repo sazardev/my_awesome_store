@@ -251,7 +251,7 @@ class AppTheme {
       // Chip
       chipTheme: ChipThemeData(
         backgroundColor: Colors.grey[200],
-        selectedColor: primaryColor.withOpacity(0.2),
+        selectedColor: primaryColor.withValues(alpha: 0.2),
         labelStyle: GoogleFonts.jost(
           fontSize: 14,
           fontWeight: FontWeight.w500,
