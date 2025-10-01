@@ -13,12 +13,12 @@ class ProductModel with _$ProductModel {
     required String name,
     required double price,
     required int stock,
+    required DateTime createdAt,
+    required DateTime updatedAt,
     String? description,
     String? barcode,
     String? category,
     String? rackLocation,
-    required DateTime createdAt,
-    required DateTime updatedAt,
   }) = _ProductModel;
 
   /// Crea un ProductModel desde una entidad del dominio

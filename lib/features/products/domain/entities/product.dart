@@ -11,12 +11,12 @@ class Product with _$Product {
     required String name,
     required double price,
     required int stock,
+    required DateTime createdAt,
+    required DateTime updatedAt,
     String? description,
     String? barcode,
     String? categoryId,
     String? rackLocation,
-    required DateTime createdAt,
-    required DateTime updatedAt,
   }) = _Product;
   const Product._();
 
