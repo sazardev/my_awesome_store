@@ -45,21 +45,21 @@ class Failure with _$Failure {
   /// Mensaje de error técnico (extraído de cada variante)
   @override
   String get message => when(
-        server: (msg, code) => msg,
-        database: (msg, details) => msg,
-        network: (msg) => msg,
-        cache: (msg) => msg,
-        unexpected: (msg, error) => msg,
-        validation: (msg, errors) => msg,
-      );
+    server: (msg, code) => msg,
+    database: (msg, details) => msg,
+    network: (msg) => msg,
+    cache: (msg) => msg,
+    unexpected: (msg, error) => msg,
+    validation: (msg, errors) => msg,
+  );
 
   /// Mensaje de error amigable para el usuario
   String get userMessage => when(
-        server: (msg, code) => 'Error del servidor: $msg',
-        database: (msg, details) => 'Error de base de datos: $msg',
-        network: (msg) => 'Error de conexión: $msg. Verifica tu internet.',
-        cache: (msg) => 'Error de caché: $msg',
-        unexpected: (msg, error) => 'Error inesperado: $msg',
-        validation: (msg, errors) => 'Error de validación: $msg',
-      );
+    server: (msg, code) => 'Error del servidor: $msg',
+    database: (msg, details) => 'Error de base de datos: $msg',
+    network: (msg) => 'Error de conexión: $msg. Verifica tu internet.',
+    cache: (msg) => 'Error de caché: $msg',
+    unexpected: (msg, error) => 'Error inesperado: $msg',
+    validation: (msg, errors) => 'Error de validación: $msg',
+  );
 }

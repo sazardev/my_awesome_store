@@ -8,7 +8,7 @@ abstract class LoggerModule {
   /// Configurado con PrettyPrinter para una salida legible
   @lazySingleton
   Logger get logger => Logger(
-        printer: PrettyPrinter(),
-        level: Level.debug,
-      );
+    printer: PrettyPrinter(),
+    level: Level.debug,
+  );
 }

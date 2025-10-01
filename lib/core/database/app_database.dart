@@ -31,8 +31,7 @@ class Products extends Table {
   TextColumn get rackLocation => text().nullable()();
 
   /// Fecha de creación
-  DateTimeColumn get createdAt =>
-      dateTime().withDefault(currentDateAndTime)();
+  DateTimeColumn get createdAt => dateTime().withDefault(currentDateAndTime)();
 
   /// Fecha de última actualización
   DateTimeColumn get updatedAt => dateTime().nullable()();
@@ -44,8 +43,8 @@ class Products extends Table {
   /// Índices para mejorar búsquedas
   @override
   List<Set<Column>> get uniqueKeys => [
-        {barcode}, // Barcode debe ser único si existe
-      ];
+    {barcode}, // Barcode debe ser único si existe
+  ];
 }
 
 /// Tabla de Categorías
@@ -63,16 +62,15 @@ class Categories extends Table {
   TextColumn get colorHex => text().nullable()();
 
   /// Fecha de creación
-  DateTimeColumn get createdAt =>
-      dateTime().withDefault(currentDateAndTime)();
+  DateTimeColumn get createdAt => dateTime().withDefault(currentDateAndTime)();
 
   @override
   Set<Column> get primaryKey => {id};
 
   @override
   List<Set<Column>> get uniqueKeys => [
-        {name}, // Nombre único
-      ];
+    {name}, // Nombre único
+  ];
 }
 
 /// Tabla de Ventas
@@ -102,7 +100,8 @@ class SaleItems extends Table {
   TextColumn get id => text()();
 
   /// ID de la venta (foreign key)
-  TextColumn get saleId => text().references(Sales, #id, onDelete: KeyAction.cascade)();
+  TextColumn get saleId =>
+      text().references(Sales, #id, onDelete: KeyAction.cascade)();
 
   /// ID del producto (foreign key)
   TextColumn get productId => text().references(Products, #id)();
@@ -131,22 +130,22 @@ class AppDatabase extends _$AppDatabase {
   /// Migraciones de base de datos
   @override
   MigrationStrategy get migration => MigrationStrategy(
-        onCreate: (Migrator m) async {
-          // Crear todas las tablas
-          await m.createAll();
-        },
-        onUpgrade: (Migrator m, int from, int to) async {
-          // Agregar migraciones aquí cuando actualices el schema
-          // Ejemplo:
-          // if (from < 2) {
-          //   await m.addColumn(products, products.newColumn);
-          // }
-        },
-        beforeOpen: (details) async {
-          // Habilitar foreign keys en SQLite
-          await customStatement('PRAGMA foreign_keys = ON');
-        },
-      );
+    onCreate: (Migrator m) async {
+      // Crear todas las tablas
+      await m.createAll();
+    },
+    onUpgrade: (Migrator m, int from, int to) async {
+      // Agregar migraciones aquí cuando actualices el schema
+      // Ejemplo:
+      // if (from < 2) {
+      //   await m.addColumn(products, products.newColumn);
+      // }
+    },
+    beforeOpen: (details) async {
+      // Habilitar foreign keys en SQLite
+      await customStatement('PRAGMA foreign_keys = ON');
+    },
+  );
 
   /// Métodos helper para la base de datos pueden ir aquí
   /// Por ejemplo: consultas complejas, transacciones, etc.

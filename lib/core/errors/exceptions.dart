@@ -10,7 +10,8 @@ class ServerException implements Exception {
   final int? statusCode;
 
   @override
-  String toString() => 'ServerException: $message ${statusCode != null ? '(Code: $statusCode)' : ''}';
+  String toString() =>
+      'ServerException: $message ${statusCode != null ? '(Code: $statusCode)' : ''}';
 }
 
 /// Excepción de la base de datos
@@ -21,7 +22,8 @@ class DatabaseException implements Exception {
   final String? details;
 
   @override
-  String toString() => 'DatabaseException: $message ${details != null ? '- $details' : ''}';
+  String toString() =>
+      'DatabaseException: $message ${details != null ? '- $details' : ''}';
 }
 
 /// Excepción de red/conexión
