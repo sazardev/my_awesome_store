@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$ProductModel {
 
- String get id; String get name; double get price; int get stock; String? get description; String? get barcode; String? get category; String? get rackLocation; DateTime get createdAt; DateTime get updatedAt;
+ String get id; String get name; double get price; int get stock; DateTime get createdAt; DateTime get updatedAt; String? get description; String? get barcode; String? get category; String? get rackLocation;
 /// Create a copy of ProductModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -25,16 +25,16 @@ $ProductModelCopyWith<ProductModel> get copyWith => _$ProductModelCopyWithImpl<P
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ProductModel&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.price, price) || other.price == price)&&(identical(other.stock, stock) || other.stock == stock)&&(identical(other.description, description) || other.description == description)&&(identical(other.barcode, barcode) || other.barcode == barcode)&&(identical(other.category, category) || other.category == category)&&(identical(other.rackLocation, rackLocation) || other.rackLocation == rackLocation)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ProductModel&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.price, price) || other.price == price)&&(identical(other.stock, stock) || other.stock == stock)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.description, description) || other.description == description)&&(identical(other.barcode, barcode) || other.barcode == barcode)&&(identical(other.category, category) || other.category == category)&&(identical(other.rackLocation, rackLocation) || other.rackLocation == rackLocation));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,id,name,price,stock,description,barcode,category,rackLocation,createdAt,updatedAt);
+int get hashCode => Object.hash(runtimeType,id,name,price,stock,createdAt,updatedAt,description,barcode,category,rackLocation);
 
 @override
 String toString() {
-  return 'ProductModel(id: $id, name: $name, price: $price, stock: $stock, description: $description, barcode: $barcode, category: $category, rackLocation: $rackLocation, createdAt: $createdAt, updatedAt: $updatedAt)';
+  return 'ProductModel(id: $id, name: $name, price: $price, stock: $stock, createdAt: $createdAt, updatedAt: $updatedAt, description: $description, barcode: $barcode, category: $category, rackLocation: $rackLocation)';
 }
 
 
@@ -45,7 +45,7 @@ abstract mixin class $ProductModelCopyWith<$Res>  {
   factory $ProductModelCopyWith(ProductModel value, $Res Function(ProductModel) _then) = _$ProductModelCopyWithImpl;
 @useResult
 $Res call({
- String id, String name, double price, int stock, String? description, String? barcode, String? category, String? rackLocation, DateTime createdAt, DateTime updatedAt
+ String id, String name, double price, int stock, DateTime createdAt, DateTime updatedAt, String? description, String? barcode, String? category, String? rackLocation
 });
 
 
@@ -62,19 +62,19 @@ class _$ProductModelCopyWithImpl<$Res>
 
 /// Create a copy of ProductModel
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? name = null,Object? price = null,Object? stock = null,Object? description = freezed,Object? barcode = freezed,Object? category = freezed,Object? rackLocation = freezed,Object? createdAt = null,Object? updatedAt = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? name = null,Object? price = null,Object? stock = null,Object? createdAt = null,Object? updatedAt = null,Object? description = freezed,Object? barcode = freezed,Object? category = freezed,Object? rackLocation = freezed,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,price: null == price ? _self.price : price // ignore: cast_nullable_to_non_nullable
 as double,stock: null == stock ? _self.stock : stock // ignore: cast_nullable_to_non_nullable
-as int,description: freezed == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
+as int,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
+as DateTime,updatedAt: null == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
+as DateTime,description: freezed == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
 as String?,barcode: freezed == barcode ? _self.barcode : barcode // ignore: cast_nullable_to_non_nullable
 as String?,category: freezed == category ? _self.category : category // ignore: cast_nullable_to_non_nullable
 as String?,rackLocation: freezed == rackLocation ? _self.rackLocation : rackLocation // ignore: cast_nullable_to_non_nullable
-as String?,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
-as DateTime,updatedAt: null == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
-as DateTime,
+as String?,
   ));
 }
 
@@ -159,10 +159,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String name,  double price,  int stock,  String? description,  String? barcode,  String? category,  String? rackLocation,  DateTime createdAt,  DateTime updatedAt)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String name,  double price,  int stock,  DateTime createdAt,  DateTime updatedAt,  String? description,  String? barcode,  String? category,  String? rackLocation)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _ProductModel() when $default != null:
-return $default(_that.id,_that.name,_that.price,_that.stock,_that.description,_that.barcode,_that.category,_that.rackLocation,_that.createdAt,_that.updatedAt);case _:
+return $default(_that.id,_that.name,_that.price,_that.stock,_that.createdAt,_that.updatedAt,_that.description,_that.barcode,_that.category,_that.rackLocation);case _:
   return orElse();
 
 }
@@ -180,10 +180,10 @@ return $default(_that.id,_that.name,_that.price,_that.stock,_that.description,_t
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String name,  double price,  int stock,  String? description,  String? barcode,  String? category,  String? rackLocation,  DateTime createdAt,  DateTime updatedAt)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String name,  double price,  int stock,  DateTime createdAt,  DateTime updatedAt,  String? description,  String? barcode,  String? category,  String? rackLocation)  $default,) {final _that = this;
 switch (_that) {
 case _ProductModel():
-return $default(_that.id,_that.name,_that.price,_that.stock,_that.description,_that.barcode,_that.category,_that.rackLocation,_that.createdAt,_that.updatedAt);case _:
+return $default(_that.id,_that.name,_that.price,_that.stock,_that.createdAt,_that.updatedAt,_that.description,_that.barcode,_that.category,_that.rackLocation);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -200,10 +200,10 @@ return $default(_that.id,_that.name,_that.price,_that.stock,_that.description,_t
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String name,  double price,  int stock,  String? description,  String? barcode,  String? category,  String? rackLocation,  DateTime createdAt,  DateTime updatedAt)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String name,  double price,  int stock,  DateTime createdAt,  DateTime updatedAt,  String? description,  String? barcode,  String? category,  String? rackLocation)?  $default,) {final _that = this;
 switch (_that) {
 case _ProductModel() when $default != null:
-return $default(_that.id,_that.name,_that.price,_that.stock,_that.description,_that.barcode,_that.category,_that.rackLocation,_that.createdAt,_that.updatedAt);case _:
+return $default(_that.id,_that.name,_that.price,_that.stock,_that.createdAt,_that.updatedAt,_that.description,_that.barcode,_that.category,_that.rackLocation);case _:
   return null;
 
 }
@@ -215,19 +215,19 @@ return $default(_that.id,_that.name,_that.price,_that.stock,_that.description,_t
 
 
 class _ProductModel extends ProductModel {
-  const _ProductModel({required this.id, required this.name, required this.price, required this.stock, this.description, this.barcode, this.category, this.rackLocation, required this.createdAt, required this.updatedAt}): super._();
+  const _ProductModel({required this.id, required this.name, required this.price, required this.stock, required this.createdAt, required this.updatedAt, this.description, this.barcode, this.category, this.rackLocation}): super._();
   
 
 @override final  String id;
 @override final  String name;
 @override final  double price;
 @override final  int stock;
+@override final  DateTime createdAt;
+@override final  DateTime updatedAt;
 @override final  String? description;
 @override final  String? barcode;
 @override final  String? category;
 @override final  String? rackLocation;
-@override final  DateTime createdAt;
-@override final  DateTime updatedAt;
 
 /// Create a copy of ProductModel
 /// with the given fields replaced by the non-null parameter values.
@@ -239,16 +239,16 @@ _$ProductModelCopyWith<_ProductModel> get copyWith => __$ProductModelCopyWithImp
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ProductModel&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.price, price) || other.price == price)&&(identical(other.stock, stock) || other.stock == stock)&&(identical(other.description, description) || other.description == description)&&(identical(other.barcode, barcode) || other.barcode == barcode)&&(identical(other.category, category) || other.category == category)&&(identical(other.rackLocation, rackLocation) || other.rackLocation == rackLocation)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ProductModel&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.price, price) || other.price == price)&&(identical(other.stock, stock) || other.stock == stock)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.description, description) || other.description == description)&&(identical(other.barcode, barcode) || other.barcode == barcode)&&(identical(other.category, category) || other.category == category)&&(identical(other.rackLocation, rackLocation) || other.rackLocation == rackLocation));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,id,name,price,stock,description,barcode,category,rackLocation,createdAt,updatedAt);
+int get hashCode => Object.hash(runtimeType,id,name,price,stock,createdAt,updatedAt,description,barcode,category,rackLocation);
 
 @override
 String toString() {
-  return 'ProductModel(id: $id, name: $name, price: $price, stock: $stock, description: $description, barcode: $barcode, category: $category, rackLocation: $rackLocation, createdAt: $createdAt, updatedAt: $updatedAt)';
+  return 'ProductModel(id: $id, name: $name, price: $price, stock: $stock, createdAt: $createdAt, updatedAt: $updatedAt, description: $description, barcode: $barcode, category: $category, rackLocation: $rackLocation)';
 }
 
 
@@ -259,7 +259,7 @@ abstract mixin class _$ProductModelCopyWith<$Res> implements $ProductModelCopyWi
   factory _$ProductModelCopyWith(_ProductModel value, $Res Function(_ProductModel) _then) = __$ProductModelCopyWithImpl;
 @override @useResult
 $Res call({
- String id, String name, double price, int stock, String? description, String? barcode, String? category, String? rackLocation, DateTime createdAt, DateTime updatedAt
+ String id, String name, double price, int stock, DateTime createdAt, DateTime updatedAt, String? description, String? barcode, String? category, String? rackLocation
 });
 
 
@@ -276,19 +276,19 @@ class __$ProductModelCopyWithImpl<$Res>
 
 /// Create a copy of ProductModel
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? name = null,Object? price = null,Object? stock = null,Object? description = freezed,Object? barcode = freezed,Object? category = freezed,Object? rackLocation = freezed,Object? createdAt = null,Object? updatedAt = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? name = null,Object? price = null,Object? stock = null,Object? createdAt = null,Object? updatedAt = null,Object? description = freezed,Object? barcode = freezed,Object? category = freezed,Object? rackLocation = freezed,}) {
   return _then(_ProductModel(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,price: null == price ? _self.price : price // ignore: cast_nullable_to_non_nullable
 as double,stock: null == stock ? _self.stock : stock // ignore: cast_nullable_to_non_nullable
-as int,description: freezed == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
+as int,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
+as DateTime,updatedAt: null == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
+as DateTime,description: freezed == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
 as String?,barcode: freezed == barcode ? _self.barcode : barcode // ignore: cast_nullable_to_non_nullable
 as String?,category: freezed == category ? _self.category : category // ignore: cast_nullable_to_non_nullable
 as String?,rackLocation: freezed == rackLocation ? _self.rackLocation : rackLocation // ignore: cast_nullable_to_non_nullable
-as String?,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
-as DateTime,updatedAt: null == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
-as DateTime,
+as String?,
   ));
 }
 
